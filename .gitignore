@@ -44,16 +44,16 @@ logs/
 # =========================
 # 🔹 ML / DL Models
 # =========================
-*.pth
-*.pt
-*.ckpt
-*.onnx
-*.h5
-*.pb
-models/
-checkpoints/
-runs/
-wandb/
+# *.pth
+# *.pt
+# *.ckpt
+# *.onnx
+# *.h5
+# *.pb
+# models/
+# checkpoints/
+# runs/
+# wandb/
 
 # =========================
 # 🔹 Datasets
