@@ -1,0 +1,775 @@
+/* ==================== CSS Variables ==================== */
+:root {
+    --primary: #2D7D32;
+    --primary-dark: #1B5E20;
+    --primary-light: #4CAF50;
+    --accent: #FF8F00;
+    --accent-light: #FFB300;
+    --white: #ffffff;
+    --off-white: #f5f7f5;
+    --gray-100: #f0f0f0;
+    --gray-200: #e0e0e0;
+    --gray-600: #757575;
+    --gray-800: #424242;
+    --text: #212121;
+    --danger: #D32F2F;
+    --danger-light: #FFCDD2;
+    --success: #2E7D32;
+    --success-light: #C8E6C9;
+    --warning: #FF8F00;
+    --warning-light: #FFE0B2;
+    --shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.15);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --transition: 0.3s ease;
+}
+
+/* ==================== Reset & Base ==================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text);
+    background: var(--off-white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ==================== Navbar ==================== */
+.navbar {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    color: var(--white);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--white);
+}
+
+.leaf-icon {
+    font-size: 1.8rem;
+}
+
+.nav-tagline {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    font-style: italic;
+}
+
+/* ==================== Flash Messages ==================== */
+.flash-container {
+    max-width: 700px;
+    margin: 1rem auto;
+    padding: 0 1rem;
+}
+
+.flash-message {
+    padding: 0.9rem 1.2rem;
+    border-radius: var(--radius-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    animation: slideDown 0.3s ease;
+}
+
+.flash-error {
+    background: var(--danger-light);
+    color: var(--danger);
+    border-left: 4px solid var(--danger);
+}
+
+.flash-close {
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: inherit;
+    padding: 0 0.3rem;
+}
+
+/* ==================== Hero ==================== */
+.hero {
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+    background: linear-gradient(180deg, var(--off-white) 0%, var(--white) 100%);
+}
+
+.hero-icon {
+    font-size: 3.5rem;
+    animation: float 3s ease-in-out infinite;
+    margin-bottom: 0.5rem;
+}
+
+.hero h1 {
+    font-size: 2.2rem;
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+}
+
+.hero p {
+    color: var(--gray-600);
+    font-size: 1.05rem;
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+/* ==================== Upload Section ==================== */
+.upload-section {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    padding: 0 1rem;
+}
+
+.drop-zone {
+    border: 3px dashed var(--primary-light);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    background: var(--white);
+    position: relative;
+}
+
+.drop-zone:hover,
+.drop-zone.drag-over {
+    border-color: var(--primary);
+    background: var(--success-light);
+    transform: scale(1.01);
+}
+
+.upload-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.drop-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+.drop-subtext {
+    color: var(--gray-600);
+    margin: 0.3rem 0;
+}
+
+.browse-btn {
+    display: inline-block;
+    background: var(--primary);
+    color: var(--white);
+    padding: 0.6rem 1.8rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 0.5rem;
+}
+
+.browse-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.file-hint {
+    font-size: 0.8rem;
+    color: var(--gray-600);
+    margin-top: 0.8rem;
+}
+
+/* Preview */
+.preview-container {
+    position: relative;
+    margin-top: 1rem;
+}
+
+.image-preview {
+    max-height: 250px;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+}
+
+.remove-preview {
+    position: absolute;
+    top: -8px;
+    right: calc(50% - 140px);
+    background: var(--danger);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Submit Button */
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 0.9rem;
+    margin-top: 1rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--white);
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+}
+
+.submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ==================== Samples Gallery ==================== */
+.samples-section {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+.samples-section h2 {
+    color: var(--primary-dark);
+    margin-bottom: 0.3rem;
+}
+
+.samples-subtitle {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+}
+
+.samples-gallery {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.sample-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 3px solid var(--gray-200);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.sample-image:hover {
+    border-color: var(--primary);
+    transform: scale(1.08);
+    box-shadow: var(--shadow);
+}
+
+/* ==================== Loading Overlay ==================== */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.spinner-container {
+    background: var(--white);
+    padding: 2.5rem 3rem;
+    border-radius: var(--radius);
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--gray-200);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+.spinner-container p {
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+.spinner-sub {
+    font-weight: 400 !important;
+    color: var(--gray-600) !important;
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+}
+
+/* ==================== Result Page ==================== */
+.result-section {
+    max-width: 1000px;
+    margin: 2rem auto 3rem;
+    padding: 0 1rem;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.result-image-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.result-image-card h3 {
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+}
+
+.result-image {
+    border-radius: var(--radius-sm);
+    max-height: 400px;
+    object-fit: contain;
+}
+
+.result-diagnosis-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.diagnosis-title {
+    color: var(--primary-dark);
+    margin-bottom: 1.2rem;
+    font-size: 1.5rem;
+    border-bottom: 2px solid var(--primary-light);
+    padding-bottom: 0.5rem;
+}
+
+/* Top Prediction */
+.top-prediction {
+    border-radius: var(--radius-sm);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.healthy-card {
+    background: var(--success-light);
+    border-left: 5px solid var(--success);
+}
+
+.diseased-card {
+    background: var(--danger-light);
+    border-left: 5px solid var(--danger);
+}
+
+.prediction-header {
+    margin-bottom: 0.8rem;
+}
+
+.severity-badge {
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.severity-badge.healthy {
+    background: var(--success);
+    color: var(--white);
+}
+
+.severity-badge.diseased {
+    background: var(--danger);
+    color: var(--white);
+}
+
+.prediction-details {
+    margin-top: 0.5rem;
+}
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.detail-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    min-width: 110px;
+}
+
+.detail-value {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+/* Confidence Meter */
+.confidence-section {
+    margin-top: 1rem;
+}
+
+.confidence-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gray-800);
+}
+
+.confidence-bar-outer {
+    background: var(--gray-200);
+    border-radius: 50px;
+    height: 28px;
+    overflow: hidden;
+    margin-top: 0.3rem;
+}
+
+.confidence-bar-inner {
+    height: 100%;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 50px;
+}
+
+.confidence-text {
+    color: var(--white);
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.conf-high {
+    background: linear-gradient(90deg, var(--success), var(--primary-light));
+}
+
+.conf-medium {
+    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+}
+
+.conf-low {
+    background: linear-gradient(90deg, var(--danger), #EF5350);
+}
+
+/* Top-3 Section */
+.top3-section {
+    margin-bottom: 1.5rem;
+}
+
+.top3-section h3 {
+    color: var(--primary-dark);
+    margin-bottom: 0.8rem;
+}
+
+.prediction-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.prediction-chip:last-child {
+    border-bottom: none;
+}
+
+.chip-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 200px;
+}
+
+.chip-rank {
+    background: var(--primary);
+    color: var(--white);
+    padding: 0.15rem 0.5rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.chip-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.chip-bar-outer {
+    flex: 1;
+    background: var(--gray-100);
+    border-radius: 50px;
+    height: 10px;
+    overflow: hidden;
+}
+
+.chip-bar-inner {
+    height: 100%;
+    border-radius: 50px;
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chip-conf {
+    font-size: 0.85rem;
+    font-weight: 700;
+    min-width: 50px;
+    text-align: right;
+    color: var(--gray-800);
+}
+
+/* Disease Info Box */
+.disease-info-box {
+    background: var(--off-white);
+    border-radius: var(--radius-sm);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--gray-200);
+}
+
+.disease-info-box h3 {
+    color: var(--primary-dark);
+    margin-bottom: 0.8rem;
+}
+
+.severity-indicator {
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.severity-healthy {
+    background: var(--success-light);
+    color: var(--success);
+}
+
+.severity-mild {
+    background: var(--warning-light);
+    color: var(--accent);
+}
+
+.severity-severe {
+    background: var(--danger-light);
+    color: var(--danger);
+}
+
+.info-block {
+    margin-bottom: 1rem;
+}
+
+.info-block:last-child {
+    margin-bottom: 0;
+}
+
+.info-block h4 {
+    color: var(--gray-800);
+    margin-bottom: 0.3rem;
+    font-size: 0.95rem;
+}
+
+.info-block p {
+    color: var(--gray-600);
+    line-height: 1.6;
+    font-size: 0.9rem;
+}
+
+/* Analyze Again Button */
+.analyze-again-btn {
+    display: block;
+    text-align: center;
+    padding: 0.9rem;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: var(--white);
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+}
+
+.analyze-again-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ==================== Footer ==================== */
+.footer {
+    background: var(--primary-dark);
+    color: var(--white);
+    text-align: center;
+    padding: 1.5rem 1rem;
+    margin-top: auto;
+    font-size: 0.85rem;
+}
+
+.footer p {
+    margin-bottom: 0.3rem;
+    opacity: 0.9;
+}
+
+.footer p:last-child {
+    margin-bottom: 0;
+    opacity: 0.7;
+    font-size: 0.8rem;
+}
+
+/* ==================== Animations ==================== */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================== Media Queries ==================== */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 0.3rem;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 1.6rem;
+    }
+
+    .hero-icon {
+        font-size: 2.5rem;
+    }
+
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chip-info {
+        min-width: 140px;
+    }
+
+    .detail-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.2rem;
+    }
+
+    .sample-image {
+        width: 90px;
+        height: 90px;
+    }
+}
+
+@media (max-width: 480px) {
+    .drop-zone {
+        padding: 1.5rem 1rem;
+    }
+
+    .hero h1 {
+        font-size: 1.3rem;
+    }
+
+    .result-diagnosis-card {
+        padding: 1.2rem;
+    }
+
+    .chip-info {
+        min-width: auto;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.2rem;
+    }
+}
