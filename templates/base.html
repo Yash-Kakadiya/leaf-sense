@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}LeafSense{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/images/logo.png') }}">
+    <!-- Prevent theme flash -->
+    <script>
+        (function () {
+            const saved = localStorage.getItem('leafsense-theme');
+            if (saved) document.documentElement.setAttribute('data-theme', saved);
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="nav-brand">
+                <img src="{{ url_for('static', filename='assets/images/logo.png') }}" alt="LeafSense" class="nav-logo">
+                <span>LeafSense</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="{{ url_for('index') }}"
+                    class="nav-link {% if active_page == 'home' %}active{% endif %}">Home</a>
+                <a href="{{ url_for('diagnose') }}"
+                    class="nav-link {% if active_page == 'diagnose' %}active{% endif %}">Diagnose</a>
+                <a href="{{ url_for('insights') }}"
+                    class="nav-link {% if active_page == 'insights' %}active{% endif %}">Insights</a>
+                <a href="{{ url_for('about') }}"
+                    class="nav-link {% if active_page == 'about' %}active{% endif %}">About</a>
+            </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-container">
+        {% for category, message in messages %}
+        <div class="flash-message flash-{{ category }}">
+            <span>{{ message }}</span>
+            <button class="flash-close" onclick="this.parentElement.remove()">&times;</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay" style="display: none;">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <p>Analyzing your leaf image...</p>
+            <p class="spinner-sub">This may take a few seconds</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="{{ url_for('static', filename='assets/images/logo.png') }}" alt="LeafSense"
+                            class="footer-logo-img">
+                        <span>LeafSense</span>
+                    </div>
+                    <p>AI-Powered Plant Disease Detection. Helping farmers and gardeners protect their crops using deep
+                        learning.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{{ url_for('index') }}">Home</a></li>
+                        <li><a href="{{ url_for('diagnose') }}">Diagnose</a></li>
+                        <li><a href="{{ url_for('insights') }}">Insights</a></li>
+                        <li><a href="{{ url_for('about') }}">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://github.com/yash-kakadiya/leaf-sense" target="_blank"
+                                rel="noopener noreferrer">GitHub
+                                Repo</a></li>
+                        <li><a href="https://www.kaggle.com/datasets/abdallahalidev/plantvillage-dataset"
+                                target="_blank" rel="noopener noreferrer">Dataset</a></li>
+                        <li><a href="{{ url_for('insights') }}">How It Works</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LeafSense. Built with 💚 by ¥@$# Kakadiya</p>
+                <p>For educational purposes only. Not professional agricultural advice.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!-- Floating leaf particles script -->
+    <script>
+        (function () {
+            const container = document.getElementById('particles');
+            if (!container) return;
+            const emojis = ['🌿', '🍃', '🌱', '🍀', '🌾', '☘️', '🌳', '🍂', '🌲', '🪻'];
+            const layers = ['layer-back', 'layer-mid', 'layer-front'];
+            const layerConfig = {
+                'layer-back': { minDur: 18, maxDur: 28, minSize: 14, maxSize: 22, minDelay: 0, maxDelay: 20, minSway: 3, maxSway: 6 },
+                'layer-mid': { minDur: 14, maxDur: 22, minSize: 18, maxSize: 28, minDelay: 0, maxDelay: 15, minSway: 4, maxSway: 8 },
+                'layer-front': { minDur: 10, maxDur: 16, minSize: 22, maxSize: 36, minDelay: 0, maxDelay: 12, minSway: 5, maxSway: 10 }
+            };
+            const totalParticles = 50;
+            for (let i = 0; i < totalParticles; i++) {
+                const layer = layers[Math.floor(Math.random() * layers.length)];
+                const cfg = layerConfig[layer];
+                const el = document.createElement('div');
+                el.classList.add('particle', layer);
+                el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                const duration = (Math.random() * (cfg.maxDur - cfg.minDur) + cfg.minDur);
+                const size = Math.random() * (cfg.maxSize - cfg.minSize) + cfg.minSize;
+                const delay = Math.random() * (cfg.maxDelay - cfg.minDelay) + cfg.minDelay;
+                const swayDur = Math.random() * (cfg.maxSway - cfg.minSway) + cfg.minSway;
+                const rotation = (Math.random() * 720 - 360);
+                const scale = 0.6 + Math.random() * 0.8;
+                const opacity = layer === 'layer-back' ? 0.15 + Math.random() * 0.15
+                    : layer === 'layer-mid' ? 0.2 + Math.random() * 0.2
+                        : 0.3 + Math.random() * 0.3;
+                el.style.cssText = `
+                    left: ${Math.random() * 100}%;
+                    font-size: ${size}px;
+                    --p-rotation: ${rotation}deg;
+                    --p-scale: ${scale};
+                    --p-opacity: ${opacity};
+                    animation: float-up ${duration}s linear ${delay}s infinite, sway ${swayDur}s ease-in-out ${delay}s infinite alternate;
+                `;
+                container.appendChild(el);
+            }
+        })();
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

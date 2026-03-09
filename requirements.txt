@@ -7,7 +7,9 @@ click==8.3.1
 blinker==1.9.0
 
 # Machine Learning & Data Science
-torch==2.5.1
+
+--extra-index-url https://download.pytorch.org/whl/cpu #(CPU Only to save space for server deployment. You can switch to the CUDA version if you have a compatible GPU and want faster inference)
+torch==2.5.1 
 torchvision==0.20.1
 torchaudio==2.5.1
 scikit-learn==1.7.2

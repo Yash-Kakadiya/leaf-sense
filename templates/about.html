@@ -1,0 +1,331 @@
+{% extends 'base.html' %}
+
+{% block title %}About | LeafSense{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="container">
+        <div class="page-header">
+            <span class="page-badge">🌱 About LeafSense</span>
+            <h1>Built with Purpose,<br>Powered by Science</h1>
+            <p>A deep learning project dedicated to helping farmers and gardeners protect their crops</p>
+        </div>
+
+        <!-- Mission -->
+        <div class="glass-section">
+            <div class="glass-section-header">
+                <div class="glass-section-icon">💚</div>
+                <div>
+                    <h2>Why We Built LeafSense</h2>
+                    <p>Food security starts with healthy plants</p>
+                </div>
+            </div>
+
+            <div class="mission-content">
+                <p>Plant diseases threaten global food security, causing billions of dollars in crop losses annually.
+                    Early and accurate detection is crucial for effective treatment, but expert pathologists aren't
+                    always available — especially in rural communities.</p>
+                <p>LeafSense bridges this gap by putting the power of deep learning into a simple web interface.
+                    Upload a photo of a plant leaf, and our AI model identifies the plant species and diagnoses
+                    potential diseases in seconds — providing actionable treatment recommendations.</p>
+            </div>
+
+            <div class="mission-stats">
+                <div class="stat-item">
+                    <span class="stat-number">14</span>
+                    <span class="stat-label">Plant Species</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">26</span>
+                    <span class="stat-label">Diseases Detected</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">~99.5%</span>
+                    <span class="stat-label">Accuracy</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">Free</span>
+                    <span class="stat-label">Forever</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- What Makes It Special -->
+        <div class="glass-section">
+            <div class="glass-section-header">
+                <div class="glass-section-icon">✨</div>
+                <div>
+                    <h2>What Makes LeafSense Special</h2>
+                    <p>Designed with real-world needs in mind</p>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Privacy First</h3>
+                    <p>Images are processed on the server and deleted immediately. No data is stored or shared with
+                        third parties.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Open Source</h3>
+                    <p>Fully open-source codebase. View, contribute, and learn from the code on GitHub. Built for the
+                        community.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💚</div>
+                    <h3>Completely Free</h3>
+                    <p>No fees, no subscriptions, no hidden costs. Accessible to everyone - from students to small-scale
+                        farmers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Explainable AI</h3>
+                    <p>Transparent predictions with top-3 results, confidence scores, and detailed disease information
+                        for each diagnosis.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technology Stack -->
+        <div class="glass-section">
+            <div class="glass-section-header">
+                <div class="glass-section-icon">🔧</div>
+                <div>
+                    <h2>Technology Stack</h2>
+                    <p>Built with modern, industry-standard tools</p>
+                </div>
+            </div>
+
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>🔧 Backend</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python 3.10+</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">Gunicorn</span>
+                        <span class="tech-tag">Pillow</span>
+                    </div>
+                </div>
+                <div class="tech-card">
+                    <h4>🧠 Machine Learning</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">PyTorch</span>
+                        <span class="tech-tag">TorchVision</span>
+                        <span class="tech-tag">ResNet50</span>
+                        <span class="tech-tag">Transfer Learning</span>
+                    </div>
+                </div>
+                <div class="tech-card">
+                    <h4>🎨 Frontend</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Jinja2</span>
+                    </div>
+                </div>
+                <div class="tech-card">
+                    <h4>📂 Data & Training</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">PlantVillage</span>
+                        <span class="tech-tag">Kaggle</span>
+                        <span class="tech-tag">Jupyter Notebooks</span>
+                        <span class="tech-tag">Matplotlib</span>
+                    </div>
+                </div>
+                <div class="tech-card">
+                    <h4>🚀 Deployment</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Render</span>
+                        <span class="tech-tag">Gunicorn</span>
+                        <span class="tech-tag">Git</span>
+                        <span class="tech-tag">GitHub</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Objectives -->
+        <div class="glass-section">
+            <div class="glass-section-header">
+                <div class="glass-section-icon">🎯</div>
+                <div>
+                    <h2>Project Objectives</h2>
+                    <p>Deep Learning project milestones</p>
+                </div>
+            </div>
+
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <span class="obj-num">1</span>
+                    <div>
+                        <h4>Dataset Collection & Preparation</h4>
+                        <p>Source the PlantVillage Dataset from Kaggle and preprocess 54,305 images across 38 classes.
+                        </p>
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <span class="obj-num">2</span>
+                    <div>
+                        <h4>Custom CNN Development</h4>
+                        <p>Design and train a baseline CNN architecture from scratch to establish performance
+                            benchmarks.</p>
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <span class="obj-num">3</span>
+                    <div>
+                        <h4>Transfer Learning (ResNet50)</h4>
+                        <p>Implement ResNet50 with custom classifier head, achieving ~99.5% accuracy through
+                            fine-tuning.</p>
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <span class="obj-num">4</span>
+                    <div>
+                        <h4>Model Evaluation & Comparison</h4>
+                        <p>Compare Custom CNN vs ResNet50 using accuracy, confusion matrices, and classification
+                            reports.</p>
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <span class="obj-num">5</span>
+                    <div>
+                        <h4>Application Interface</h4>
+                        <p>Build a responsive, multi-page Flask web application with intuitive drag-and-drop upload
+                            interface.</p>
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <span class="obj-num">6</span>
+                    <div>
+                        <h4>Agricultural Knowledge Base</h4>
+                        <p>Curate disease information including severity levels, treatment plans, and prevention
+                            strategies.</p>
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <span class="obj-num">7</span>
+                    <div>
+                        <h4>Backend Integration & Deployment</h4>
+                        <p>Integrate trained model with Flask backend and prepare for production deployment.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Meet the Developer -->
+        <div class="glass-section">
+            <div class="glass-section-header">
+                <div class="glass-section-icon">👨‍💻</div>
+                <div>
+                    <h2>Meet the Developer</h2>
+                    <p>The mind behind LeafSense</p>
+                </div>
+            </div>
+
+            <div class="developer-card">
+                <div class="developer-avatar">
+                    <img src="../static/assets/images/yashXlogo.gif" alt="Developer Avatar">
+                </div>
+                <div class="developer-info">
+                    <h2>Developer & Creator</h2>
+                    <h3>¥@$# Kakadiya</h3>
+                    <p class="developer-title">Machine Learning Engineer & Full-Stack Developer</p>
+                    <p class="developer-bio">
+                        Passionate about leveraging technology to solve real-world problems.LeafSense was born from the
+                        intersection of desire to learn deep learning and a commitment to make agricultural insights
+                        accessible to everyone.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://github.com/yash-kakadiya" class="social-link github" target="_blank"
+                            rel="noopener noreferrer">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="https://linkedin.com/in/yash-kakadiya-" class="social-link linkedin" target="_blank"
+                            rel="noopener noreferrer">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                        <a href="https://twitter.com/yash__8055" class="social-link twitter" target="_blank"
+                            rel="noopener noreferrer">
+                            <i class="fab fa-x-twitter"></i> Twitter
+                        </a>
+                        <a href="mailto:kakadiyayash77@gmail.com" class="social-link email">
+                            <i class="fas fa-envelope"></i> Email
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Explore the Project -->
+        <div class="glass-section">
+            <div class="glass-section-header">
+                <div class="glass-section-icon">🔗</div>
+                <div>
+                    <h2>Explore the Project</h2>
+                    <p>Resources and links</p>
+                </div>
+            </div>
+
+            <div class="project-links-grid">
+                <a href="https://github.com/yash-kakadiya/leaf-sense" class="project-link" target="_blank"
+                    rel="noopener noreferrer">
+                    <i class="fab fa-github"></i>
+                    <div>
+                        <h4>GitHub Repository</h4>
+                        <p>View source code, contribute, and star the project</p>
+                    </div>
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+                <a href="https://www.kaggle.com/datasets/abdallahalidev/plantvillage-dataset" class="project-link"
+                    target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-kaggle"></i>
+                    <div>
+                        <h4>PlantVillage Dataset</h4>
+                        <p>Explore the dataset on Kaggle with 54K+ images</p>
+                    </div>
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+                <a href="{{ url_for('insights') }}" class="project-link">
+                    <i class="fas fa-book"></i>
+                    <div>
+                        <h4>Model Documentation</h4>
+                        <p>Architecture details, metrics, and training insights</p>
+                    </div>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer-card">
+            <span class="disclaimer-icon">⚠️</span>
+            <div>
+                <h3>Important Disclaimer</h3>
+                <p>LeafSense is a <strong>hobby project</strong> developed for educational and research purposes. It
+                    is <strong>not a substitute</strong> for professional agricultural consultation. While the model
+                    achieves high accuracy on the test dataset, real-world conditions (lighting, camera quality, leaf
+                    angle) may affect results. Always consult a qualified agronomist or plant pathologist for definitive
+                    diagnosis and treatment decisions.</p>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <div class="cta-card">
+                <div class="cta-decoration">
+                    <div class="cta-circle cta-circle-1"></div>
+                    <div class="cta-circle cta-circle-2"></div>
+                    <div class="cta-circle cta-circle-3"></div>
+                </div>
+                <h2>Try LeafSense Now</h2>
+                <p>Upload a leaf image and experience AI-powered plant disease detection</p>
+                <a href="{{ url_for('diagnose') }}" class="btn btn-white btn-lg">🔬 Start Diagnosis</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

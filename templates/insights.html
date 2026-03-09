@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+
+{% block title %}Model Insights | LeafSense{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="container">
+        <div class="page-header">
+            <span class="page-badge">🧠 Model Transparency</span>
+            <h1>How LeafSense Works</h1>
+            <p>Understanding the science and technology behind your plant disease diagnosis</p>
+        </div>
+
+        <!-- Model Architecture -->
+        <div class="glass-section">
+            <div class="glass-section-header">
+                <div class="glass-section-icon">🧠</div>
+                <div>
+                    <h2>The ResNet50 Model</h2>
+                    <p>Transfer learning from ImageNet, fine-tuned for plant disease detection</p>
+                </div>
+            </div>
+
+            <div class="architecture-flow">
+                <div class="arch-step">
+                    <div class="arch-icon">🖼️</div>
+                    <div class="arch-label">Input Image</div>
+                    <div class="arch-detail">224 × 224 × 3 RGB</div>
+                </div>
+                <div class="arch-arrow">→</div>
+                <div class="arch-step">
+                    <div class="arch-icon">🔄</div>
+                    <div class="arch-label">Preprocessing</div>
+                    <div class="arch-detail">Resize → Normalize (ImageNet)</div>
+                </div>
+                <div class="arch-arrow">→</div>
+                <div class="arch-step highlight-step">
+                    <div class="arch-icon">🧠</div>
+                    <div class="arch-label">ResNet50 Backbone</div>
+                    <div class="arch-detail">Pre-trained on ImageNet</div>
+                </div>
+                <div class="arch-arrow">→</div>
+                <div class="arch-step">
+                    <div class="arch-icon">⚙️</div>
+                    <div class="arch-label">Custom FC Head</div>
+                    <div class="arch-detail">2048→512→ReLU→Dropout→38</div>
+                </div>
+                <div class="arch-arrow">→</div>
+                <div class="arch-step">
+                    <div class="arch-icon">📊</div>
+                    <div class="arch-label">Softmax</div>
+                    <div class="arch-detail">Top-3 Predictions</div>
+                </div>
+            </div>
+
+            <div class="arch-note">
+                The model uses a ResNet50 backbone pre-trained on ImageNet with a custom fully connected head:
+                <code>Linear(2048→512) → ReLU → Dropout(0.3) → Linear(512→38)</code>.
+                Transfer learning allows the model to leverage features learned from millions of images for accurate
+                plant disease classification.
+            </div>
+        </div>
+
+        <!-- Performance Metrics -->
+        <div class="glass-section">
+            <div class="glass-section-header">
+                <div class="glass-section-icon">📊</div>
+                <div>
+                    <h2>Model Performance</h2>
+                    <p>Evaluation metrics from the test dataset</p>
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon">🎯</div>
+                    <div class="metric-number">~99.5%</div>
+                    <div class="metric-label">Accuracy</div>
+                    <div class="metric-desc">Overall prediction accuracy</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">🔬</div>
+                    <div class="metric-number">ResNet50</div>
+                    <div class="metric-label">Architecture</div>
+                    <div class="metric-desc">Transfer learning from ImageNet</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">📦</div>
+                    <div class="metric-number">38</div>
+                    <div class="metric-label">Classes</div>
+                    <div class="metric-desc">Disease classes detected</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">⚡</div>
+                    <div class="metric-number">&lt;2s</div>
+                    <div class="metric-label">Inference</div>
+                    <div class="metric-desc">Per-image prediction time</div>
+                </div>
+            </div>
+
+            <div class="comparison-card">
+                <h3>Model Comparison</h3>
+                <div class="comparison-table">
+                    <div class="comp-row comp-header">
+                        <span>Model</span>
+                        <span>Architecture</span>
+                        <span>Accuracy</span>
+                        <span>Status</span>
+                    </div>
+                    <div class="comp-row">
+                        <span>Custom CNN</span>
+                        <span>3-layer CNN from scratch</span>
+                        <span>~98.8%</span>
+                        <span class="comp-tag">Baseline</span>
+                    </div>
+                    <div class="comp-row comp-highlight">
+                        <span>ResNet50</span>
+                        <span>Transfer Learning + Fine-tuning</span>
+                        <span>~99.5%</span>
+                        <span class="comp-tag active-tag">✅ Deployed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dataset Section -->
+        <div class="glass-section">
+            <div class="glass-section-header">
+                <div class="glass-section-icon">📂</div>
+                <div>
+                    <h2>Training Dataset</h2>
+                    <p>The foundation of our model</p>
+                </div>
+            </div>
+
+            <div class="dataset-stats">
+                <div class="stat-item">
+                    <span class="stat-number">54,305</span>
+                    <span class="stat-label">Total Images</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">14</span>
+                    <span class="stat-label">Plant Species</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">38</span>
+                    <span class="stat-label">Disease Classes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">80/20</span>
+                    <span class="stat-label">Train/Test Split</span>
+                </div>
+            </div>
+
+            <div class="dataset-info-card">
+                <h4>Dataset Source</h4>
+                <p>PlantVillage Dataset from Kaggle - a curated collection of plant leaf images captured under
+                    controlled conditions, covering 14 plant species with both healthy and diseased samples.</p>
+                <a href="https://www.kaggle.com/datasets/abdallahalidev/plantvillage-dataset" target="_blank"
+                    rel="noopener noreferrer" class="btn btn-outline btn-sm">View on Kaggle →</a>
+            </div>
+        </div>
+
+        <!-- Training Pipeline -->
+        <div class="glass-section">
+            <div class="glass-section-header">
+                <div class="glass-section-icon">⚙️</div>
+                <div>
+                    <h2>Training Pipeline</h2>
+                    <p>How the model was trained</p>
+                </div>
+            </div>
+
+            <div class="pipeline-grid">
+                <div class="pipeline-step">
+                    <div class="pipeline-num">1</div>
+                    <h4>Data Augmentation</h4>
+                    <p>RandomHorizontalFlip, RandomRotation, ColorJitter to increase training diversity and prevent
+                        overfitting.</p>
+                </div>
+                <div class="pipeline-step">
+                    <div class="pipeline-num">2</div>
+                    <h4>Transfer Learning</h4>
+                    <p>Loaded ResNet50 pre-trained on ImageNet (1M+ images). Replaced the final FC layer with a custom
+                        classifier head.</p>
+                </div>
+                <div class="pipeline-step">
+                    <div class="pipeline-num">3</div>
+                    <h4>Fine-tuning</h4>
+                    <p>Trained with Adam optimizer and CrossEntropyLoss. Batch size 32, learning rate scheduling for
+                        optimal convergence.</p>
+                </div>
+                <div class="pipeline-step">
+                    <div class="pipeline-num">4</div>
+                    <h4>Evaluation</h4>
+                    <p>Compared Custom CNN vs ResNet50. Selected ResNet50 for deployment based on superior ~99.5% test
+                        accuracy.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Disease Coverage -->
+        <div class="glass-section">
+            <div class="glass-section-header">
+                <div class="glass-section-icon">🌿</div>
+                <div>
+                    <h2>Disease Coverage</h2>
+                    <p>All {{ total_classes }} classes organized by plant species</p>
+                </div>
+            </div>
+
+            <!-- For last tomato plant, diesease are very much so, increase the width of that div since we have one card space left on right  -->
+            <div class="disease-coverage-grid">
+                {% for plant, diseases in plant_diseases.items() %}
+                <div class="plant-coverage-card" {% if plant=='Tomato' %}style="grid-column: span 2;" {% endif %}>
+                    <h4>{{ plant }}</h4>
+                    <div class="disease-tags">
+                        {% for d in diseases %}
+                        <span
+                            class="disease-tag {% if d.severity == 'healthy' %}tag-healthy{% elif d.severity == 'mild' %}tag-mild{% else %}tag-severe{% endif %}">
+                            {{ d.disease }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <div class="cta-card">
+                <div class="cta-decoration">
+                    <div class="cta-circle cta-circle-1"></div>
+                    <div class="cta-circle cta-circle-2"></div>
+                    <div class="cta-circle cta-circle-3"></div>
+                </div>
+                <h2>Ready to Try the Model?</h2>
+                <p>Upload a leaf image and see the AI in action with real-time predictions</p>
+                <a href="{{ url_for('diagnose') }}" class="btn btn-white btn-lg">🔬 Start Diagnosis</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

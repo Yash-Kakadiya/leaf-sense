@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Diagnose | LeafSense{% endblock %}
+
+{% block content %}
+<section class="diagnose-page">
+    <div class="container">
+        <div class="page-header">
+            <span class="page-badge">🔬 Plant Diagnosis</span>
+            <h1>Diagnose Your Plant</h1>
+            <p>Upload a leaf image and our AI will identify the plant species and detect diseases instantly.</p>
+        </div>
+
+        <div class="upload-card">
+            <form id="upload-form" action="{{ url_for('predict_route') }}" method="POST" enctype="multipart/form-data">
+                <div id="drop-zone" class="drop-zone">
+                    <div class="drop-zone-icon">📤</div>
+                    <div class="drop-zone-text">
+                        <h4>Drag & drop a leaf image here</h4>
+                        <p>or <span class="browse-link">browse files</span></p>
+                    </div>
+                </div>
+                <input type="file" id="file-input" name="file" accept=".png,.jpg,.jpeg,.webp,.bmp"
+                    class="file-input-hidden">
+                <div id="image-preview-container" class="image-preview-container">
+                    <img id="image-preview" alt="Preview">
+                    <div class="file-info">
+                        <span id="file-info-text"></span>
+                        <button type="button" id="remove-file-btn" class="remove-file">Remove</button>
+                    </div>
+                </div>
+                <button type="submit" id="submit-btn" class="btn btn-primary btn-lg submit-btn" disabled>
+                    🔬 Analyze Leaf
+                </button>
+            </form>
+        </div>
+
+        <!-- Sample Gallery -->
+        {% if sample_images %}
+        <div class="samples-section">
+            <h3>Or Try a Sample Image</h3>
+            <p class="samples-subtitle">Click any image below for instant analysis</p>
+            <div class="samples-grid">
+                {% for img in sample_images %}
+                {% set label = img.rsplit('.', 1)[0].replace('_', ' ') %}
+                <div class="sample-card" data-src="{{ url_for('static', filename='samples/' + img) }}"
+                    data-name="{{ img }}">
+                    <img src="{{ url_for('static', filename='samples/' + img) }}" alt="{{ label }}">
+                    <p>{{ label }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

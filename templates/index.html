@@ -1,105 +1,176 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlantDoc AI - Plant Disease Detector</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
+{% block title %}LeafSense | AI-Powered Plant Disease Detection{% endblock %}
 
-<body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="nav-brand">
-            <span class="leaf-icon">🌿</span> PlantDoc AI
-        </div>
-        <div class="nav-tagline">Deep Learning Plant Disease Detection</div>
-    </nav>
-
-    <!-- Flash Messages -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <div class="flash-container">
-        {% for category, message in messages %}
-        <div class="flash-message flash-{{ category }}">
-            {{ message }}
-            <button class="flash-close" onclick="this.parentElement.remove()">&times;</button>
-        </div>
-        {% endfor %}
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-bg">
+        <div class="hero-gradient"></div>
+        <div class="hero-pattern"></div>
     </div>
-    {% endif %}
-    {% endwith %}
-
-    <!-- Hero Section -->
-    <section class="hero">
+    <div class="hero-container">
         <div class="hero-content">
-            <div class="hero-icon">🍃</div>
-            <h1>Diagnose Your Plant Instantly!</h1>
-            <p>Upload a leaf image and our AI will identify the plant species and detect any diseases with top-3
-                predictions.</p>
-        </div>
-    </section>
-
-    <!-- Upload Section -->
-    <section class="upload-section">
-        <form id="upload-form" action="{{ url_for('predict_route') }}" method="POST" enctype="multipart/form-data">
-            <div id="drop-zone" class="drop-zone">
-                <div class="drop-zone-content">
-                    <div class="upload-icon">📤</div>
-                    <p class="drop-text">Drag & drop a leaf image here</p>
-                    <p class="drop-subtext">or</p>
-                    <label for="file-input" class="browse-btn">Browse Files</label>
-                    <input type="file" id="file-input" name="file" accept=".png,.jpg,.jpeg" hidden>
-                    <p class="file-hint">Supported: PNG, JPG, JPEG (max 10 MB)</p>
+            <span class="hero-badge">🌿 AI-Powered Plant Health</span>
+            <h1 class="hero-title">Protect Your Plants<br>with <span class="text-gradient">Artificial
+                    Intelligence</span></h1>
+            <p class="hero-subtitle">Upload a leaf image and get instant disease diagnosis powered by deep learning.
+                Identifies 14 plant species and 26 diseases with ~99.5% accuracy.</p>
+            <div class="hero-cta">
+                <a href="{{ url_for('diagnose') }}" class="btn btn-primary btn-lg">🔬 Start Diagnosis</a>
+                <a href="{{ url_for('insights') }}" class="btn btn-secondary btn-lg">How It Works</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="stat-value">14</span>
+                    <span class="stat-label">Plant Species</span>
                 </div>
-                <!-- Image Preview -->
-                <div id="preview-container" class="preview-container" style="display: none;">
-                    <img id="image-preview" class="image-preview" alt="Preview">
-                    <button type="button" id="remove-preview" class="remove-preview">&times;</button>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="stat-value">38</span>
+                    <span class="stat-label">Disease Classes</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="stat-value">~99.5%</span>
+                    <span class="stat-label">Accuracy</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="stat-value">54K+</span>
+                    <span class="stat-label">Training Images</span>
                 </div>
             </div>
-            <button type="submit" id="submit-btn" class="submit-btn" disabled>
-                🔬 Analyze Leaf
-            </button>
-        </form>
-    </section>
-
-    <!-- Sample Gallery -->
-    {% if sample_images %}
-    <section class="samples-section">
-        <h2>Or Try a Sample Image</h2>
-        <p class="samples-subtitle">Click any image below for instant analysis</p>
-        <div class="samples-gallery">
-            {% for img in sample_images %}
-            <form class="sample-form" action="{{ url_for('predict_route') }}" method="POST"
-                enctype="multipart/form-data">
-                <input type="file" name="file" class="sample-file-input" hidden>
-                <img src="{{ url_for('static', filename='samples/' + img) }}" alt="Sample leaf" class="sample-image"
-                    data-src="{{ url_for('static', filename='samples/' + img) }}" data-filename="{{ img }}"
-                    onclick="submitSample(this)">
-            </form>
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
-
-    <!-- Loading Overlay -->
-    <div id="loading-overlay" class="loading-overlay" style="display: none;">
-        <div class="spinner-container">
-            <div class="spinner"></div>
-            <p>Analyzing your leaf image...</p>
-            <p class="spinner-sub">This may take a few seconds</p>
         </div>
     </div>
+    <div class="hero-scroll">
+        <span>Scroll to explore</span>
+        <i class="fas fa-chevron-down"></i>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>PlantDoc AI - Plant Disease Detection System | Deep Learning College Project</p>
-        <p>Powered by PyTorch ResNet50 · PlantVillage Dataset · 38 Classes · ~99.5% Accuracy</p>
-    </footer>
+<!-- Features Section -->
+<section id="features">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">Features</span>
+            <h2 class="section-title">Why LeafSense?</h2>
+            <p class="section-subtitle">Comprehensive plant health assessment powered by deep learning</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔬</div>
+                <h3>Dual Detection</h3>
+                <p>Identifies both plant species and disease from a single leaf image in one prediction.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Top-3 Predictions</h3>
+                <p>View the three most likely diagnoses with animated confidence bars for each.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <h3>Disease Information</h3>
+                <p>Get detailed descriptions, causes, severity levels, and treatment recommendations.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>High Accuracy</h3>
+                <p>ResNet50 transfer learning model trained on 54,000+ images achieving ~99.5% accuracy.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📤</div>
+                <h3>Drag & Drop Upload</h3>
+                <p>Simple upload interface with drag-and-drop support and instant image preview.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Instant Results</h3>
+                <p>Get your complete diagnosis in seconds with real-time AI analysis on any device.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-</body>
+<!-- How It Works Section -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">Process</span>
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Three simple steps to diagnose your plant</p>
+        </div>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">01</div>
+                <div class="step-content">
+                    <div class="step-icon">📸</div>
+                    <h3>Upload Image</h3>
+                    <p>Take or upload a clear photo of the plant leaf showing any symptoms.</p>
+                </div>
+            </div>
+            <div class="step-connector"><i class="fas fa-arrow-right"></i></div>
+            <div class="step">
+                <div class="step-number">02</div>
+                <div class="step-content">
+                    <div class="step-icon">🧠</div>
+                    <h3>AI Analysis</h3>
+                    <p>Our ResNet50 deep learning model analyzes the image against 38 trained disease classes.</p>
+                </div>
+            </div>
+            <div class="step-connector"><i class="fas fa-arrow-right"></i></div>
+            <div class="step">
+                <div class="step-number">03</div>
+                <div class="step-content">
+                    <div class="step-icon">📋</div>
+                    <h3>Get Diagnosis</h3>
+                    <p>Receive plant identification, disease name, confidence scores, and treatment advice.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-</html>
+<!-- Plants We Analyze Section -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">Coverage</span>
+            <h2 class="section-title">Plants We Analyze</h2>
+            <p class="section-subtitle">14 plant species with comprehensive disease detection</p>
+        </div>
+        <div class="plants-grid">
+            <div class="plant-badge"><span class="plant-emoji">🍎</span> Apple</div>
+            <div class="plant-badge"><span class="plant-emoji">🫐</span> Blueberry</div>
+            <div class="plant-badge"><span class="plant-emoji">🍒</span> Cherry</div>
+            <div class="plant-badge"><span class="plant-emoji">🌽</span> Corn</div>
+            <div class="plant-badge"><span class="plant-emoji">🍇</span> Grape</div>
+            <div class="plant-badge"><span class="plant-emoji">🍊</span> Orange</div>
+            <div class="plant-badge"><span class="plant-emoji">🍑</span> Peach</div>
+            <div class="plant-badge"><span class="plant-emoji">🫑</span> Pepper</div>
+            <div class="plant-badge"><span class="plant-emoji">🥔</span> Potato</div>
+            <div class="plant-badge"><span class="plant-emoji">🫐</span> Raspberry</div>
+            <div class="plant-badge"><span class="plant-emoji">🫘</span> Soybean</div>
+            <div class="plant-badge"><span class="plant-emoji">🎃</span> Squash</div>
+            <div class="plant-badge"><span class="plant-emoji">🍓</span> Strawberry</div>
+            <div class="plant-badge"><span class="plant-emoji">🍅</span> Tomato</div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-card">
+            <div class="cta-decoration">
+                <div class="cta-circle cta-circle-1"></div>
+                <div class="cta-circle cta-circle-2"></div>
+                <div class="cta-circle cta-circle-3"></div>
+            </div>
+            <h2>Ready to Diagnose Your Plant?</h2>
+            <p>Upload a leaf image and get instant AI-powered diagnosis with treatment recommendations</p>
+            <a href="{{ url_for('diagnose') }}" class="btn btn-white btn-lg">🔬 Start Diagnosis Now</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

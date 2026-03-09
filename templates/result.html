@@ -1,88 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diagnosis Results - PlantDoc AI</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
+{% block title %}Diagnosis Results | LeafSense{% endblock %}
 
-<body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <a href="{{ url_for('index') }}" class="nav-brand">
-            <span class="leaf-icon">🌿</span> PlantDoc AI
-        </a>
-        <div class="nav-tagline">Deep Learning Plant Disease Detection</div>
-    </nav>
+{% block content %}
+<section class="page-section">
+    <div class="container">
+        <div class="page-header">
+            <span class="page-badge">📋 Diagnosis Complete</span>
+            <h1>Your Results</h1>
+        </div>
 
-    <!-- Result Section -->
-    <section class="result-section fade-in">
         <div class="result-grid">
             <!-- Left: Uploaded Image -->
             <div class="result-image-card">
-                <h3>Uploaded Image</h3>
-                <img src="{{ url_for('static', filename=image_path) }}" alt="Uploaded leaf" class="result-image">
+                <img src="{{ url_for('static', filename=image_path) }}" alt="Uploaded leaf">
+                <div class="result-image-info">Uploaded leaf image</div>
             </div>
 
-            <!-- Right: Diagnosis -->
-            <div class="result-diagnosis-card">
-                <h2 class="diagnosis-title">Diagnosis Result</h2>
+            <!-- Right: Diagnosis Details -->
+            <div class="result-details-card">
+                <div class="result-header">
+                    <h2>{{ top.plant }} -> {{ top.disease }}</h2>
+                    <p class="result-plant-name">{{ top.class_name }}</p>
+                    {% if disease_info and disease_info.severity %}
+                    <span class="severity-badge severity-{{ disease_info.severity }}">{{ disease_info.severity |
+                        capitalize }}</span>
+                    {% endif %}
+                </div>
 
-                <!-- Top Prediction -->
-                <div
-                    class="top-prediction {% if top.disease == 'Healthy' %}healthy-card{% else %}diseased-card{% endif %}">
-                    <div class="prediction-header">
-                        {% if top.disease == 'Healthy' %}
-                        <span class="severity-badge healthy">✅ Healthy</span>
-                        {% else %}
-                        <span class="severity-badge diseased">❗ Disease Detected</span>
-                        {% endif %}
+                <!-- Confidence -->
+                <div class="confidence-section">
+                    <div class="confidence-label">
+                        <span>Confidence</span>
+                        <span>{{ top.confidence }}%</span>
                     </div>
-
-                    <div class="prediction-details">
-                        <div class="detail-row">
-                            <span class="detail-label">🌱 Plant</span>
-                            <span class="detail-value">{{ top.plant }}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">⚠️ Condition</span>
-                            <span class="detail-value">{{ top.disease }}</span>
-                        </div>
-                    </div>
-
-                    <!-- Confidence Meter -->
-                    <div class="confidence-section">
-                        <span class="confidence-label">Confidence</span>
-                        <div class="confidence-bar-outer">
-                            <div class="confidence-bar-inner
-                                {% if top.confidence >= 85 %}conf-high
-                                {% elif top.confidence >= 60 %}conf-medium
-                                {% else %}conf-low{% endif %}" style="width: 0%;" data-width="{{ top.confidence }}%">
-                                <span class="confidence-text">{{ top.confidence }}%</span>
-                            </div>
-                        </div>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" data-width="{{ top.confidence }}"></div>
                     </div>
                 </div>
 
                 <!-- Top-3 Predictions -->
-                <div class="top3-section">
-                    <h3>Top 3 Predictions</h3>
+                <div class="top-predictions">
+                    <h4>Top 3 Predictions</h4>
                     {% for r in results %}
                     <div class="prediction-chip">
-                        <div class="chip-info">
-                            <span class="chip-rank">#{{ loop.index }}</span>
-                            <span class="chip-name">{{ r.plant }} - {{ r.disease }}</span>
-                        </div>
-                        <div class="chip-bar-outer">
-                            <div class="chip-bar-inner
-                                {% if r.confidence >= 85 %}conf-high
-                                {% elif r.confidence >= 60 %}conf-medium
-                                {% else %}conf-low{% endif %}" style="width: 0%;" data-width="{{ r.confidence }}%">
-                            </div>
-                        </div>
-                        <span class="chip-conf">{{ r.confidence }}%</span>
+                        <span class="pred-name">#{{ loop.index }} {{ r.plant }} -> {{ r.disease }}</span>
+                        <span class="pred-conf">{{ r.confidence }}%</span>
                     </div>
                     {% endfor %}
                 </div>
@@ -90,54 +53,23 @@
                 <!-- Disease Info -->
                 {% if disease_info %}
                 <div class="disease-info-box">
-                    <h3>📋 Disease Information</h3>
-                    {% if disease_info.severity == 'healthy' %}
-                    <div class="severity-indicator severity-healthy">
-                        <span>Severity: <strong>Healthy ✅</strong></span>
+                    <h4>📋 Disease Information</h4>
+                    <div class="info-row">
+                        <div class="info-label">Description</div>
+                        <div class="info-value">{{ disease_info.description }}</div>
                     </div>
-                    {% elif disease_info.severity == 'mild' %}
-                    <div class="severity-indicator severity-mild">
-                        <span>Severity: <strong>Mild ⚠️</strong></span>
-                    </div>
-                    {% else %}
-                    <div class="severity-indicator severity-severe">
-                        <span>Severity: <strong>Severe 🔴</strong></span>
-                    </div>
-                    {% endif %}
-
-                    <div class="info-block">
-                        <h4>Description</h4>
-                        <p>{{ disease_info.description }}</p>
-                    </div>
-                    <div class="info-block">
-                        <h4>💊 Treatment & Recommendations</h4>
-                        <p>{{ disease_info.treatment }}</p>
+                    <div class="info-row">
+                        <div class="info-label">Treatment</div>
+                        <div class="info-value">{{ disease_info.treatment }}</div>
                     </div>
                 </div>
                 {% endif %}
 
-                <!-- Analyze Another -->
-                <a href="{{ url_for('index') }}" class="analyze-again-btn">🔄 Analyze Another Leaf</a>
+                <div class="result-action">
+                    <a href="{{ url_for('diagnose') }}" class="btn btn-primary btn-lg">🔄 Analyze Another Leaf</a>
+                </div>
             </div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <p>PlantDoc AI - Plant Disease Detection System | Deep Learning College Project</p>
-        <p>Powered by PyTorch ResNet50 · PlantVillage Dataset · 38 Classes · ~99.5% Accuracy</p>
-    </footer>
-
-    <script>
-        // Animate confidence bars on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                document.querySelectorAll('[data-width]').forEach(bar => {
-                    bar.style.width = bar.getAttribute('data-width');
-                });
-            }, 300);
-        });
-    </script>
-</body>
-
-</html>
+    </div>
+</section>
+{% endblock %}

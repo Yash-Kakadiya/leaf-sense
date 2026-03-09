@@ -1,8 +1,18 @@
-# 🌿 Plant Disease Detection System with Plant Identification
+<div align="center">
 
-An AI-powered web application built with **PyTorch** and **Flask** that identifies **plant species** and **diagnoses diseases** from leaf images using deep learning. The system uses a fine-tuned **ResNet50** model trained on the **PlantVillage** dataset, achieving **~99.5% accuracy** across 38 classes covering 14 plant species and 26 diseases.
+  <img src="./assets/logo.png" alt="LeafSense Logo" width="120">
+  
+  # LeafSense
+  ### AI-Powered Plant Disease Detection
 
----
+  [![Python](https://img.shields.io/badge/Python-3.10-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+  [![Flask](https://img.shields.io/badge/Flask-3.1-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+  [![PyTorch](https://img.shields.io/badge/PyTorch-2.5-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/)
+  [![ResNet50](https://img.shields.io/badge/ResNet50-Transfer_Learning-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)](https://arxiv.org/abs/1512.03385)
+  [![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
+
+</div>
+
 
 ## 📋 Table of Contents
 
@@ -13,7 +23,7 @@ An AI-powered web application built with **PyTorch** and **Flask** that identifi
 - 👨‍💻 [Tech Stack](#tech-stack)
 - 🧠 [Model Architecture](#model-architecture)
 - ⚙ [Installation & Setup](#installation--setup)
-- 🚀 [Usage](#usage)
+- 💻 [Usage](#usage)
 - 🎯 [Project Objectives](#project-objectives)
 - 📓 [Notebooks](#notebooks)
 - 📚 [API Reference](#api-reference)
@@ -23,27 +33,44 @@ An AI-powered web application built with **PyTorch** and **Flask** that identifi
 
 ## 🔍Overview
 
-This project was developed as a **Deep Learning college project** with the goal of building an end-to-end plant disease detection pipeline — from data exploration and model training to a fully functional web application. A user simply uploads a photograph of a plant leaf, and the system:
+LeafSense was developed as a learning project with the goal of building an end-to-end plant disease detection pipeline — from data exploration and model training to a polished, production-ready web application. A user simply uploads a photograph of a plant leaf, and the system:
 
 1. **Identifies the plant species** (e.g., Tomato, Potato, Grape)
 2. **Detects the disease** (e.g., Early Blight, Late Blight, Bacterial Spot) or confirms the plant is **Healthy**
-3. **Displays top-3 predictions** with confidence scores
+3. **Displays top-3 predictions** with animated confidence bars
 4. **Provides disease information** including description, treatment recommendations, and severity level
+
+---
+
+### 🎥 [Deployed Link: LeafSense](https://leaf-sense.onrender.com/)
+
+Click below GIF to watch the full system walkthrough video 👇
+
+<a href="https://drive.google.com/drive/folders/1NS94kByLhVpu6d1ZtQdkCTrnDpDRK-DL?usp=sharing" target="_blank">
+  <img src="./assets/banner.gif" alt="LeafSense Demo Video" width="100%">
+</a>
+<br/>
+or
+
+**[▶ Click here to Watch the Full Demo on Google Drive](https://drive.google.com/drive/folders/1NS94kByLhVpu6d1ZtQdkCTrnDpDRK-DL?usp=sharing)**
 
 ---
 
 ## ✨Features
 
+- **Multi-Page Architecture**: 5 dedicated pages -> Home, Diagnose, Results, Insights, and About
+- **Glassmorphism UI**: Frosted-glass cards, animated background orbs, floating leaf particles, and smooth transitions
+- **Dark / Light Theme**: Toggle between themes with instant swap and `localStorage` persistence
 - **Dual Output**: Identifies both plant species and disease from a single prediction
 - **Top-3 Predictions**: Shows the three most likely diagnoses with animated confidence bars
 - **Disease Information**: Detailed descriptions, treatment recommendations, and severity indicators for all 38 classes
-- **Severity Indicators**: Visual badges: ✅ Healthy (green), ⚠️ Mild (orange), 🔴 Severe (red)
+- **Severity Indicators**: Visual badges -> ✅ Healthy (green), ⚠️ Mild (orange), 🔴 Severe (red)
 - **Drag & Drop Upload**: Intuitive drag-and-drop zone with image preview before submission
 - **Sample Gallery**: 7 pre-loaded sample leaf images for one-click instant testing
-- **Responsive Design**: Mobile-friendly layout with CSS Grid/Flexbox and media queries
-- **Client-Side Validation**: File type (PNG/JPG/JPEG) and size (10 MB max) checks before upload
-- **Loading Spinner**: Visual feedback overlay while the model processes the image
-- **Plant-Themed UI**: Vibrant green gradient design with animations and smooth transitions
+- **SweetAlert2 Validation**: Client-side file type (PNG/JPG/JPEG) and size (10 MB max) checks with styled popups
+- **Fully Responsive**: Mobile-first design with breakpoints at 1024px, 768px, 480px, and 360px + touch device optimizations
+- **Loading Spinner**: Visual feedback overlay with backdrop blur while the model processes
+- **Model Transparency**: Dedicated Insights page with architecture diagrams, metrics, dataset info, and disease coverage
 
 ---
 
@@ -73,11 +100,11 @@ The model classifies leaf images into **38 classes** across **14 plant species**
 ## 📁Project Structure
 
 ```
-plant-disease-detector/
-├── app.py                  # Flask web application (routes, file handling)
+leaf-sense-detector/
+├── app.py                  # Flask application (routes, error handling)
 ├── model.py                # Model loading, preprocessing & prediction
 ├── classes.py              # 38 class names, parse_label(), DISEASE_INFO dict
-├── requirements.txt        # Python dependencies with pinned versions
+├── requirements.txt        # Python dependencies
 ├── README.md               # Project documentation (this file)
 ├── WebApp.md               # Web app development plan
 ├── LICENSE                 # License file
@@ -93,16 +120,21 @@ plant-disease-detector/
 │   └── 04_evaluation.ipynb            # Model comparison & evaluation
 │
 ├── templates/
-│   ├── index.html          # Upload page (drag-drop, sample gallery)
-│   └── result.html         # Results page (diagnosis, confidence bars)
+│   ├── base.html           # Base layout (navbar, footer, particles, theme)
+│   ├── index.html          # Home page (hero, features, how-it-works, CTA)
+│   ├── diagnose.html       # Diagnose page (upload zone, sample gallery)
+│   ├── result.html         # Results page (diagnosis, confidence bars)
+│   ├── insights.html       # Model insights (architecture, metrics, coverage)
+│   └── about.html          # About page (mission, tech stack, developer)
 │
 ├── static/
+│   ├── assets/images/      # Logo and brand assets
 │   ├── css/
-│   │   └── style.css       # Plant-themed responsive styling
+│   │   └── style.css       # Glassmorphism design system (~2500 lines)
 │   ├── js/
-│   │   └── main.js         # Drag-drop, preview, spinner, validation
+│   │   └── main.js         # Theme toggle, drag-drop, animations, SweetAlert2
 │   ├── samples/            # 7 sample leaf images for gallery
-│   └── uploads/            # Uploaded images saved at runtime
+│   └── uploads/            # Uploaded images (created at runtime)
 │
 └── dataset/
     └── plantvillage-dataset/
@@ -117,14 +149,16 @@ plant-disease-detector/
 
 | Category | Technology |
 |----------|-----------|
+| **Language** | Python 3.10+ |
 | **Deep Learning** | PyTorch, TorchVision |
 | **Model** | ResNet50 (Transfer Learning) |
-| **Web Framework** | Flask |
-| **Frontend** | HTML5, CSS3, JavaScript (Vanilla) |
+| **Web Framework** | Flask, Jinja2 |
+| **Frontend** | HTML5, CSS3 (Glassmorphism), JavaScript (ES6) |
+| **UI Libraries** | Font Awesome 6.5, SweetAlert2, Google Fonts (Inter) |
 | **Image Processing** | Pillow (PIL) |
 | **Dataset** | PlantVillage (54,305 images, 38 classes) |
 | **Data Science** | NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn |
-| **Language** | Python 3.10+ |
+| **Deployment** | Gunicorn, Render, Git |
 
 ---
 
@@ -133,7 +167,7 @@ plant-disease-detector/
 The deployed model is a **ResNet50** pre-trained on ImageNet, fine-tuned on the PlantVillage dataset with a custom fully connected head:
 
 ```
-ResNet50 (backbone — frozen then fine-tuned)
+ResNet50 (backbone - frozen then fine-tuned)
     └── Custom FC Head:
         ├── Linear(2048 → 512)
         ├── ReLU
@@ -179,16 +213,16 @@ Normalization uses ImageNet statistics:
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yash-kakadiya/plant-disease-detector.git
-   cd plant-disease-detector
+   git clone https://github.com/yash-kakadiya/leaf-sense.git
+   cd leaf-sense
    ```
 
 2. **Create a virtual environment** (recommended)
 
    ```bash
    # Using conda
-   conda create -n plant-disease python=3.10
-   conda activate plant-disease
+   conda create -n leaf-sense python=3.10
+   conda activate leaf-sense
 
    # OR using venv
    python -m venv venv
@@ -218,26 +252,33 @@ Normalization uses ImageNet statistics:
 
 ---
 
-## 💡Usage
+## 💻Usage
 
 ### Upload a Leaf Image
 
-1. Open the web app in your browser
+1. Open the web app and navigate to the **Diagnose** page
 2. **Drag & drop** a leaf image onto the upload zone, or click **Browse Files** to select one
 3. Preview the image, then click **🔬 Analyze Leaf**
-4. View the diagnosis results with confidence scores
+4. View the diagnosis results with confidence scores and treatment info
 
 ### Use Sample Images
 
-1. Scroll down to the **"Or Try a Sample Image"** section
+1. On the Diagnose page, scroll to **"Or Try a Sample Image"**
 2. Click any of the 7 pre-loaded sample images
 3. Results appear instantly
+
+### Explore the App
+
+- **Home**: Overview of LeafSense capabilities, features, and supported plants
+- **Diagnose**: Upload interface with drag-and-drop and sample gallery
+- **Insights**: Model architecture, performance metrics, training pipeline, and full disease coverage
+- **About**: Project mission, technology stack, objectives, and developer info
 
 ### Interpret Results
 
 - **Plant Name**: The identified plant species (e.g., Tomato, Potato)
 - **Disease/Condition**: The detected disease or "Healthy" status
-- **Confidence Bar**: Green (>85%), Orange (60-85%), Red (<60%)
+- **Confidence Bar**: Animated fill with percentage
 - **Top-3 Predictions**: Three most likely diagnoses ranked by confidence
 - **Severity**: Healthy ✅, Mild ⚠️, or Severe 🔴
 - **Disease Info**: Description of the condition and recommended treatment
@@ -246,15 +287,15 @@ Normalization uses ImageNet statistics:
 
 ## 🎯Project Objectives
 
-| # | Objective | Status |
-|---|-----------|--------|
-| 1 | Data Collection & Preprocessing | ✅ Done |
-| 2 | Custom CNN Development | ✅ Done |
-| 3 | Transfer Learning (ResNet50) | ✅ Done |
-| 4 | Model Evaluation & Comparison | ✅ Done |
-| 5 | Application Interface (Web App) | ✅ Done |
-| 6 | Plant Identification Feature | ✅ Done |
-| 7 | Backend Integration & Deployment | ✅ Done |
+| # | Objective 
+|---|-----------
+| 1 | Data Collection & Preprocessing 
+| 2 | Custom CNN Development 
+| 3 | Transfer Learning (ResNet50)
+| 4 | Model Evaluation & Comparison
+| 5 | Application Interface (Web App)
+| 6 | Plant Identification Feature
+| 7 | Backend Integration & Deployment
 
 ---
 
@@ -273,13 +314,15 @@ The `notebooks/` directory contains the complete ML/DL pipeline:
 
 ## 📡API Reference
 
-### `GET /`
-
-Renders the upload page with the drag-and-drop zone and sample image gallery.
+| Route | Method | Description |
+|-------|--------|-------------|
+| `/` | GET | Home page: hero section, features, how-it-works, plant coverage |
+| `/diagnose` | GET | Diagnose page: upload zone with drag-and-drop + sample gallery |
+| `/predict` | POST | Accepts leaf image upload, returns diagnosis results |
+| `/insights` | GET | Model insights: architecture, metrics, dataset info, disease coverage |
+| `/about` | GET | About page: mission, tech stack, objectives, developer info |
 
 ### `POST /predict`
-
-Accepts a leaf image upload and returns the diagnosis page.
 
 **Form Data:**
 | Field | Type | Description |
@@ -294,13 +337,18 @@ Accepts a leaf image upload and returns the diagnosis page.
 **Error Handling:**
 | Scenario | Response |
 |----------|----------|
-| No file uploaded | Flash error → redirect to `/` |
-| Invalid file type | Flash error → redirect to `/` |
-| Model prediction fails | Flash error → redirect to `/` |
-| File too large (>10 MB) | 413 error |
+| No file uploaded | Flash error → redirect to `/diagnose` |
+| Invalid file type | Flash error → redirect to `/diagnose` |
+| Model prediction fails | Flash error → redirect to `/diagnose` |
+| File too large (>10 MB) | 413 → redirect to `/diagnose` with flash message |
 
 ---
 
-## 📄License
+## 📜License
 
-This project is licensed under the terms of the license included in the [LICENSE](LICENSE) file.
+This project is licensed under the MIT License - see the [`LICENSE`](LICENSE) file for details.
+
+<br>
+<div align="center">
+  <b>Developed with 💚 by <a href="https://github.com/Yash-Kakadiya" target="_blank" style="text-decoration:none; color:#F4C430;"> ¥@$# Kakadiya</a></b>
+</div>
