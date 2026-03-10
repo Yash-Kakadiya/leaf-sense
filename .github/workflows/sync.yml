@@ -19,4 +19,4 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         # REPLACE 'YOUR_HF_USERNAME' and 'YOUR_SPACE_NAME' below with your actual Hugging Face details
-        run: git push https://Yash-77:$HF_TOKEN@huggingface.co/spaces/Yash-77/LeafSense main
+        run: git push --force https://Yash-77:$HF_TOKEN@huggingface.co/spaces/Yash-77/LeafSense main
