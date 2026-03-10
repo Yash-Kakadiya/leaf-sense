@@ -51,7 +51,7 @@ LeafSense was developed as a learning project with the goal of building an end-t
 
 ---
 
-### 🎥 [Deployed Link: LeafSense](https://leaf-sense.onrender.com/)
+### 🎥 [Deployed Link: LeafSense](https://yash-77-leafsense.hf.space/)
 
 Click below GIF to watch the full system walkthrough video 👇
 
@@ -167,7 +167,7 @@ leaf-sense-detector/
 | **Image Processing** | Pillow (PIL) |
 | **Dataset** | PlantVillage (54,305 images, 38 classes) |
 | **Data Science** | NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn |
-| **Deployment** | Gunicorn, Render, Git |
+| **Deployment** | Hugging Face, Gunicorn, Git |
 
 ---
 
