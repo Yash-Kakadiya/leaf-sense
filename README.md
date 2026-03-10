@@ -1,3 +1,12 @@
+---
+license: mit
+title: LeafSense
+sdk: docker
+emoji: 🌿
+colorFrom: green
+colorTo: blue
+short_description: AI-Powered Plant Disease Detection
+---
 <div align="center">
 
   <img src="./assets/logo.png" alt="LeafSense Logo" width="120">
