@@ -53,16 +53,15 @@ LeafSense was developed as a learning project with the goal of building an end-t
 
 ### 🎥 [Deployed Link: LeafSense](https://yash-77-leafsense.hf.space/)
 
-Click below GIF to watch the full system walkthrough video 👇
-
-<a href="https://drive.google.com/drive/folders/1NS94kByLhVpu6d1ZtQdkCTrnDpDRK-DL?usp=sharing" target="_blank">
-  <img src="./assets/banner.gif" alt="LeafSense Demo Video" width="100%">
-</a>
-<br/>
 or
 
-**[▶ Click here to Watch the Full Demo on Google Drive](https://drive.google.com/drive/folders/1NS94kByLhVpu6d1ZtQdkCTrnDpDRK-DL?usp=sharing)**
+Click below GIF to see project👇
 
+<a href="https://yash-77-leafsense.hf.space/" target="_blank">
+  <img src="./assets/banner.gif" alt="LeafSense Images" width="100%">
+</a>
+
+#### Google Drive Link: [LeafSense Demo Images](https://drive.google.com/drive/folders/1NS94kByLhVpu6d1ZtQdkCTrnDpDRK-DL?usp=sharing)
 ---
 
 ## ✨Features
