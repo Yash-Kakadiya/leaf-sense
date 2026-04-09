@@ -9,7 +9,7 @@ short_description: AI-Powered Plant Disease Detection
 ---
 <div align="center">
 
-  <img src="./assets/logo.png" alt="LeafSense Logo" width="120">
+  <img src="./assets/images/logo.png" alt="LeafSense Logo" width="120">
   
   # LeafSense
   ### AI-Powered Plant Disease Detection
@@ -27,10 +27,10 @@ short_description: AI-Powered Plant Disease Detection
 
 - 🔍 [Overview](#overview)
 - ✨ [Features](#features)
+- 🧠 [Model Architecture](#model-architecture)
 - 🌿 [Supported Plants & Diseases](#supported-plants--diseases)
 - 📁 [Project Structure](#project-structure)
 - 👨‍💻 [Tech Stack](#tech-stack)
-- 🧠 [Model Architecture](#model-architecture)
 - ⚙ [Installation & Setup](#installation--setup)
 - 💻 [Usage](#usage)
 - 🎯 [Project Objectives](#project-objectives)
@@ -51,17 +51,18 @@ LeafSense was developed as a learning project with the goal of building an end-t
 
 ---
 
-### 🎥 [Deployed Link: LeafSense](https://yash-77-leafsense.hf.space/)
-
-or
-
-Click below GIF to see project👇
+### Click below GIF to see project👇
 
 <a href="https://yash-77-leafsense.hf.space/" target="_blank">
-  <img src="./assets/banner.gif" alt="LeafSense Images" width="100%">
+  <img src="./assets/images/banner.gif" alt="LeafSense Images" width="100%">
 </a>
 
+### 🎥 [Deployed Link: LeafSense](https://yash-77-leafsense.hf.space/)
+### 🤗[Hugging Face Space](https://huggingface.co/spaces/Yash-77/LeafSense)
+
 #### Google Drive Link: [LeafSense Demo Images](https://drive.google.com/drive/folders/1NS94kByLhVpu6d1ZtQdkCTrnDpDRK-DL?usp=sharing)
+
+
 ---
 
 ## ✨Features
@@ -79,6 +80,58 @@ Click below GIF to see project👇
 - **Fully Responsive**: Mobile-first design with breakpoints at 1024px, 768px, 480px, and 360px + touch device optimizations
 - **Loading Spinner**: Visual feedback overlay with backdrop blur while the model processes
 - **Model Transparency**: Dedicated Insights page with architecture diagrams, metrics, dataset info, and disease coverage
+
+---
+
+## 🧠Model Architecture
+
+### 🌐 System Architecture Flow
+
+LeafSense is built as an end-to-end pipeline. The client-side handles user interaction and validation, while the Flask backend manages complex image transformations and AI inference.
+
+![LeafSense System Flow](./assets/images/system_flow.png)
+*Figure 1: High-level overview of the LeafSense request lifecycle, from image upload to final diagnosis.*
+
+---
+
+### 🧠 Model Development: Custom CNN vs. ResNet50
+
+During development, two distinct models were evaluated.
+
+#### 1. Custom CNN Architecture
+First, a Custom Convolutional Neural Network was built from scratch to establish a robust baseline. This model progressively extracts hierarchical features using custom blocks of convolutional, pooling, and dense layers, achieving an impressive ~98.8% accuracy.
+
+![Custom CNN Architecture](./assets/images/custom_cnn_diagram.png)
+*Figure 2: The Custom CNN architecture built from scratch.*
+
+#### 2. ResNet50 Transfer Learning (Deployed Model)
+To maximize performance, the application's core intelligence relies on a **ResNet50** model. We utilized transfer learning by taking a model pre-trained on ImageNet and fine-tuning a custom fully connected head specifically for plant disease detection, pushing our final test accuracy to ~99.5%.
+
+![ResNet50 Architecture](./assets/images/architecture_diagram.png)
+*Figure 3: The ResNet50 transfer learning architecture. The original ResNet50 backbone serves as a powerful feature extractor, while a custom, fine-tuned fully connected head maps those features to our 38 specific plant & disease classes.*
+
+### Training Details
+
+| Parameter | Value |
+|-----------|-------|
+| **Input Size** | 224 × 224 × 3 (RGB) |
+| **Optimizer** | Adam |
+| **Loss Function** | CrossEntropyLoss |
+| **Batch Size** | 32 |
+| **Preprocessing** | Resize(224,224) → ToTensor → Normalize(ImageNet) |
+| **Data Augmentation** | RandomHorizontalFlip, RandomRotation, ColorJitter |
+| **Test Accuracy** | ~99.5% |
+| **Device** | CPU (inference) / GPU (training) |
+
+### Inference Pipeline
+
+```
+Input Image → Resize(224×224) → ToTensor → Normalize → ResNet50 → Softmax → Top-3 Classes
+```
+
+Normalization uses ImageNet statistics:
+- **Mean:** [0.485, 0.456, 0.406]
+- **Std:** [0.229, 0.224, 0.225]
 
 ---
 
@@ -167,44 +220,6 @@ leaf-sense-detector/
 | **Dataset** | PlantVillage (54,305 images, 38 classes) |
 | **Data Science** | NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn |
 | **Deployment** | Hugging Face, Gunicorn, Git |
-
----
-
-## 🧠Model Architecture
-
-The deployed model is a **ResNet50** pre-trained on ImageNet, fine-tuned on the PlantVillage dataset with a custom fully connected head:
-
-```
-ResNet50 (backbone - frozen then fine-tuned)
-    └── Custom FC Head:
-        ├── Linear(2048 → 512)
-        ├── ReLU
-        ├── Dropout(0.3)
-        └── Linear(512 → 38)
-```
-
-### Training Details
-
-| Parameter | Value |
-|-----------|-------|
-| **Input Size** | 224 × 224 × 3 (RGB) |
-| **Optimizer** | Adam |
-| **Loss Function** | CrossEntropyLoss |
-| **Batch Size** | 32 |
-| **Preprocessing** | Resize(224,224) → ToTensor → Normalize(ImageNet) |
-| **Data Augmentation** | RandomHorizontalFlip, RandomRotation, ColorJitter |
-| **Test Accuracy** | ~99.5% |
-| **Device** | CPU (inference) / GPU (training) |
-
-### Inference Pipeline
-
-```
-Input Image → Resize(224×224) → ToTensor → Normalize → ResNet50 → Softmax → Top-3 Classes
-```
-
-Normalization uses ImageNet statistics:
-- **Mean:** [0.485, 0.456, 0.406]
-- **Std:** [0.229, 0.224, 0.225]
 
 ---
 
